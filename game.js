@@ -72,7 +72,7 @@ function getNewFood() {
 }
 
 
-setInterval(movementLoop, 500)
+gameInterval = setInterval(movementLoop, 500)
 
 
 function movementLoop() {
@@ -85,6 +85,13 @@ function movementLoop() {
     food = getNewFood();
     let newCell = { x: snake[-1] - direction.x, y: snake[-1] - direction.y };
     snake.push(newCell)
+  }
+
+  for (i = 1; i < snake.length; i++) {
+    if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
+      clearInterval(gameInterval)
+      gameOver();
+    }
   }
 
   if (snake[0].x > gridSize) {
@@ -138,6 +145,10 @@ function keyPressed(e) {
       break;
 
   }
+}
+
+function gameOver() {
+
 }
 
 
