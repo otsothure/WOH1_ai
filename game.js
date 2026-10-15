@@ -63,14 +63,16 @@ setInterval(movementLoop, 500)
 
 
 function movementLoop() {
-  for (let i = 0; i < snake.length; i++) {
-    snake[i].x += direction.x
-    snake[i].y += direction.y
-    if (snake[i].x >= gridSize) {
-      snake[i].x = 0;
-    } else if (snake[i].y >= gridSize) {
-      snake[i].y = 0;
-    }
+  let lastChangedCell = { x: snake[0].x, y: snake[0].y };
+
+  snake[0].x += direction.x
+  snake[0].y += direction.y
+
+  for (let i = 1; i < snake.length; i++) {
+    let shitHappens = { x: snake[i].x, y: snake[i].y }
+    snake[i].x = lastChangedCell.x;
+    snake[i].y = lastChangedCell.y;
+    lastChangedCell = shitHappens;
   }
   drawGame()
 }
