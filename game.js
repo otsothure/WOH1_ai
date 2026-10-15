@@ -57,7 +57,9 @@ drawGame();
 // ===================================
 
 
-
+function randFoodPos() {
+  return Math.floor(Math.random() * 20)
+}
 
 setInterval(movementLoop, 500)
 
@@ -68,6 +70,13 @@ function movementLoop() {
 
   snake[0].x += direction.x
   snake[0].y += direction.y
+
+  if (snake[0].x === food.x && snake[0].y === food.y) {
+    food.x = randFoodPos();
+    food.y = randFoodPos();
+    let newCell = { x: snake[-1] - direction.x, y: snake[-1] - direction.y };
+    snake.push(newCell)
+  }
 
   if (snake[0].x > gridSize) {
     snake[0].x = 0;
