@@ -61,6 +61,7 @@ drawGame();
 
 setInterval(movementLoop, 500)
 
+direction = { x: -1, y: 0 }
 
 function movementLoop() {
   let lastChangedCell = { x: snake[0].x, y: snake[0].y };
@@ -68,13 +69,34 @@ function movementLoop() {
   snake[0].x += direction.x
   snake[0].y += direction.y
 
+  if (snake[0].x > gridSize) {
+    snake[0].x = 0;
+    lastChangedCell.x = 0;
+  } else if (snake[0].y > gridSize) {
+    snake[0].y = 0;
+    lastChangedCell.y = 0;
+  }
+  else if (snake[0].x <= -1) {
+    snake[0].x = gridSize;
+    lastChangedCell.x = 0;
+  } else if (snake[0].y <= -1) {
+    snake[0].y = gridSize;
+    lastChangedCell.y = 0;
+  }
+
   for (let i = 1; i < snake.length; i++) {
     let shitHappens = { x: snake[i].x, y: snake[i].y }
     snake[i].x = lastChangedCell.x;
     snake[i].y = lastChangedCell.y;
     lastChangedCell = shitHappens;
   }
-  drawGame()
+  drawGame();
+}
+
+addEventListener("keydown", keyPressed)
+
+function keyPressed(e) {
+  console.log(e);
 }
 
 
