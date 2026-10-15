@@ -96,8 +96,32 @@ function movementLoop() {
 addEventListener("keydown", keyPressed)
 
 function keyPressed(e) {
-  console.log(e);
+  switch (e.key) {
+    case 'w':
+      if (direction.y === 0) {
+        direction = { x: 0, y: -1 };
+      }
+
+      break;
+    case 's':
+      if (direction.y === 0) {
+        direction = { x: 0, y: 1 }
+      }
+      break;
+    case 'a':
+      if (direction.x === 0) {
+        direction = { x: -1, y: 0 }
+      }
+      break;
+    case 'd':
+      if (direction.x === 0) {
+        direction = { x: 1, y: 0 }
+      }
+      break;
+
+  }
 }
+
 
 
 
