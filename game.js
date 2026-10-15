@@ -55,15 +55,25 @@ drawGame();
 // Step 5: Improvements
 //
 // ===================================
-
-
-function randFoodPos() {
-  return Math.floor(Math.random() * 20)
+function randInt(max) {
+  return Math.floor(Math.random() * max)
 }
+
+function getNewFood() {
+  while (true) {
+    let x = randInt(20);
+    let y = randInt(20);
+    const occupied = snake.some(segment => segment.x === x && segment.y === y);
+    if (!occupied) {
+      return { x, y };
+    }
+  }
+
+}
+
 
 setInterval(movementLoop, 500)
 
-direction = { x: -1, y: 0 }
 
 function movementLoop() {
   let lastChangedCell = { x: snake[0].x, y: snake[0].y };
@@ -72,8 +82,7 @@ function movementLoop() {
   snake[0].y += direction.y
 
   if (snake[0].x === food.x && snake[0].y === food.y) {
-    food.x = randFoodPos();
-    food.y = randFoodPos();
+    food = getNewFood();
     let newCell = { x: snake[-1] - direction.x, y: snake[-1] - direction.y };
     snake.push(newCell)
   }
